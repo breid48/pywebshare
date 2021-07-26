@@ -40,6 +40,32 @@ class Webshare(API):
         r = super().get(url=endpoints.REPLACEMENT_HISTORY)
         return r.json()
 
+    def get_proxy_stats(self):
+        r = super().get(url=endpoints.STATS)
+        return r.json()
+
+    def get_subuser(self, id):
+        r = super().get(url=endpoints.SUBUSER, ID=id)
+        return r.json()
+
+    def get_all_subusers(self, page):
+        """
+        :param page:
+        :return:
+        :raises: HTTPError if Page not Found
+        """
+        r = super().get(url=endpoints.SUBUSER, page=page)
+        return r.json()
+
+    def update_subuser(self, id, **kwargs):
+        """ Update Subuser Information
+        :param kwargs:
+        :return:
+        """
+        url = "https://proxy.webshare.io/api/subuser/{0}/".format(id)
+        r = super().patch(url=url, **kwargs)
+        return r.json()
+
     def update_proxy_config(self, authorized_ips):
         """ Update Config Ting Heh
         :param: authorized_ips: Pee's
@@ -59,6 +85,15 @@ class Webshare(API):
         r = super().post(url=endpoints.REFRESH_LIST)
         return r.json()
 
+    def refresh_subuser_proxy_list(self, id):
+        """ Refresh Proxy List of Subuser
+        :param id:
+        :return:
+        """
+        url = "https://proxy.webshare.io/api/subuser/{0}/refresh/".format(id)
+        r = super().post(url=url)
+        return r.json()
+
     def replace_proxy(self, ip_address):
         """ Replaces Single Proxy From List
         :param: ip_address: Pee Dress
@@ -73,11 +108,38 @@ class Webshare(API):
         r = super().post(url=endpoints.DELETE_REPLACEMENT, ip_address=ip_address)
         return r.status_code
 
-    
+    def create_subuser(self, label, proxy_limit, **kwargs):
+        """ Creates Subuser Client
+        :param: label: Name
+        :param: proxy_limit:
+        :param: kwargs:
+        Required: If you wish to gain access to this API, please complete the form at https://proxy.webshare.io/subuser/
+        """
+        r = super().post(url=endpoints.SUBUSER, label=label, proxy_limit=proxy_limit, **kwargs)
+        return r.json()
 
-web = Webshare("671454f3bba60745ae754b4ccc8ac2616759cbd0")
+    def delete_subuser(self, id):
+        """ Delete's a subuser
+        :param id:
+        :return: 204 Status Code on Success
+        """
+        url = "https://proxy.webshare.io/api/subuser/{0}/".format(id)
+        r = super().delete(url=url)
+        return r.status_code
+
+
+
+web_sub = Webshare("671454f3bba60745ae754b4ccc8ac2616759cbd0", portal="subuser", id=16527)
+web_main = Webshare("671454f3bba60745ae754b4ccc8ac2616759cbd0")
+#print(web.portal)
 #print(web.get_profile())
 #print(web.get_subscription())
 #print(web.get_proxy_config())
-#print(web.get_proxy_list(page=21))
-print(web.get_proxy_replacement_info())
+#print(web.get_proxy_list(page=1))
+#print(web_main.get_proxy_list(page=1))
+#print(web.get_proxy_replacement_info())
+#print(web.get_proxy_stats())
+#print(web.create_subuser(label="Test-User", proxy_limit=0))
+#print(web.get_all_subusers(page=1))
+#print(web.update_subuser(id=16525, label="Test-User-New"))
+#print(web.delete_subuser(id=16526))

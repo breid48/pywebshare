@@ -11,4 +11,8 @@ REPLACEMENT_HISTORY = "https://proxy.webshare.io/api/proxy/replacement/"
 REFRESH_LIST = "https://proxy.webshare.io/api/proxy/replacement/info/refresh/"
 REPLACE_PROXY = "https://proxy.webshare.io/api/proxy/replacement/"
 DELETE_REPLACEMENT = "https://proxy.webshare.io/api/proxy/replacement/"
+STATS = "https://proxy.webshare.io/api/proxy/stats/"
+SUBUSER = "https://proxy.webshare.io/api/subuser/"
+
+
 
