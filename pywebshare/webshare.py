@@ -165,16 +165,3 @@ class Webshare(API):
         return r.status_code
 
 
-# client = Webshare("671454f3bba60745ae754b4ccc8ac2616759cbd0", portal="subuser", id=16527)
-client = Webshare("671454f3bba60745ae754b4ccc8ac2616759cbd0")
-print(client.portal)
-print(client.get_profile())
-print(client.get_subscription())
-print(client.get_proxy_config())
-print(client.get_proxy_list(page=1))
-print(client.get_proxy_replacement_info())
-print(client.get_proxy_stats())
-# print(client.create_subuser(label="Test-User", proxy_limit=0))
-# print(client.get_all_subusers(page=1))
-# print(client.update_subuser(id=16525, label="Test-User-New"))
-# print(client.delete_subuser(id=16526))
