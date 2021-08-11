@@ -5,16 +5,13 @@ from os.path import abspath, join, dirname
 
 class Config():
     """
-    Configuration object containing authorization credentials and optional use portal parameters
-
-    File name search defaults to 'env.ini' - another filename can be supplied through the filename parameter
-
+    Configuration object containing authorization credentials and optional portal parameters
     """
 
-    def __init__(self, filename="\env.ini"):
-        self.filename = filename
+    def __init__(self, filepath="env.ini"):
+        self.filepath = filepath
         self.config = None
-        self.config_options = ['auth', 'endpoints']
+        self.config_options = ['auth']
 
     def parse_config(self):
         """
@@ -24,8 +21,9 @@ class Config():
         """
         if not self.config:
             self.config = configparser.ConfigParser()
-            abs_path = self.get_abs_path(filename=self.filename)
+            abs_path = self.get_abs_path(filepath=self.filepath)
             self.config.read(abs_path)
+
             if not all(option in self.config.sections() for option in self.config_options):
                 raise IllegalConfigException("invalid config arguments supplied")
 
@@ -51,8 +49,8 @@ class Config():
         if self.config:
             return self.config.get("auth", "user_id")
 
-    def get_abs_path(self, filename):
-        return join(dirname(abspath(__file__)), filename)
+    def get_abs_path(self, filepath):
+        return join(dirname(abspath(__file__)), filepath)
 
 
 class IllegalConfigException(ValueError):
@@ -60,5 +58,4 @@ class IllegalConfigException(ValueError):
     Exception class for handling omitted config arguments
     """
     pass
-
 
