@@ -30,7 +30,7 @@ client = webshare.Webshare(config_path=ABSOLUTE_PATH_TO_CONFIG)
 from pywebshare import webshare
 
 client = webshare.Webshare()
-profile = client.get_profile()
+profile = client.get_proxy_list()
 ```
 
 ```
